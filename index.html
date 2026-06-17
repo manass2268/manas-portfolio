@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manas | Software & Mobile Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ========== CSS YAHAN SE SHURU HAI ========== */
+        :root {
+            --ink: #101315;
+            --paper: #f6f2ea;
+            --muted: #687078;
+            --line: rgba(16, 19, 21, 0.13);
+            --teal: #157a75;
+            --amber: #d9933d;
+            --coral: #db6d59;
+            --night: #11181b;
+            --white: #ffffff;
+            --shadow: 0 24px 70px rgba(16, 19, 21, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+            background: var(--paper);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 24px;
+            padding: 18px clamp(18px, 4vw, 56px);
+            color: var(--white);
+            transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+        }
+
+        .site-header.is-scrolled {
+            background: rgba(246, 242, 234, 0.92);
+            color: var(--ink);
+            box-shadow: 0 10px 30px rgba(16, 19, 21, 0.08);
+            backdrop-filter: blur(16px);
+        }
+
+        .brand,
+        .nav,
+        .header-action,
+        .button {
+            font-weight: 700;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border: 1px solid currentColor;
+            border-radius: 8px;
+            font-size: 1.1rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: clamp(14px, 3vw, 34px);
+            font-size: 0.92rem;
+        }
+
+        .nav a {
+            opacity: 0.84;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            opacity: 1;
+            color: var(--amber);
+        }
+
+        .header-action {
+            border: 1px solid currentColor;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            transition: 0.3s;
+        }
+
+        .header-action:hover {
+            background: var(--ink);
+            color: var(--white);
+            border-color: var(--ink);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 95vh;
+            display: grid;
+            align-items: center;
+            overflow: hidden;
+            background: var(--night);
+            color: var(--white);
+            padding: 126px clamp(20px, 5vw, 72px) 92px;
+        }
+
+        .hero-image,
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-image {
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .hero-overlay {
+            background:
+                linear-gradient(90deg, rgba(8, 13, 15, 0.98) 0%, rgba(8, 13, 15, 0.85) 45%, rgba(8, 13, 15, 0.3) 100%),
+                linear-gradient(0deg, rgba(8, 13, 15, 0.8), rgba(8, 13, 15, 0.1) 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin: 0 0 14px;
+            color: var(--amber);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            background: rgba(217, 147, 61, 0.15);
+            border-radius: 20px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            overflow-wrap: anywhere;
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 800px;
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -1px;
+        }
+
+        .hero-copy {
+            max-width: 600px;
+            margin: 26px 0 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
+            line-height: 1.7;
+        }
+
+        .hero-actions,
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .button {
+            display: inline-flex;
+            min-height: 50px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button.primary {
+            background: var(--amber);
+            color: #17110a;
+        }
+
+        .button.secondary {
+            border: 1px solid rgba(255, 255, 255, 0.46);
+            color: var(--white);
+            backdrop-filter: blur(5px);
+        }
+
+        .button.secondary.light {
+            border-color: rgba(255, 255, 255, 0.55);
+        }
+
+        .hero-stats {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            max-width: 800px;
+            margin-top: 70px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hero-stats div {
+            min-height: 100px;
+            padding: 20px;
+            background: rgba(13, 20, 22, 0.6);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero-stats strong {
+            display: block;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--amber);
+        }
+
+        .hero-stats span {
+            display: block;
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .section-band {
+            padding: clamp(70px, 9vw, 120px) clamp(20px, 5vw, 72px);
+        }
+
+        .section-heading {
+            display: grid;
+            grid-template-columns: minmax(160px, 0.34fr) minmax(0, 1fr);
+            gap: clamp(22px, 5vw, 70px);
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            max-width: 800px;
+            font-size: clamp(2.2rem, 4.8vw, 4.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-grid,
+        .skills-layout {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(30px, 5vw, 70px);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .intro-grid p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .work {
+            background: #e9f0ed;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: clamp(24px, 3vw, 36px);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 30px rgba(16, 19, 21, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(16, 19, 21, 0.1);
+        }
+
+        .project-card.featured {
+            background: var(--night);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .project-meta,
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-meta {
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured .project-meta {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .project-card h3 {
+            margin: auto 0 16px;
+            font-size: clamp(1.5rem, 2vw, 2.2rem);
+            line-height: 1.2;
+        }
+
+        .project-card p {
+            margin: 0 0 28px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .featured p {
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .tags span {
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: var(--teal);
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .featured .tags span {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--amber);
+            background: transparent;
+        }
+
+        .skill-list,
+        .capability-panel {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: clamp(24px, 3vw, 40px);
+        }
+
+        .skill-row {
+            display: grid;
+            gap: 14px;
+            margin-bottom: 28px;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .skill-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-track {
+            height: 12px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(16, 19, 21, 0.1);
+        }
+
+        .skill-track i {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--teal), var(--amber), var(--coral));
+        }
+
+        .capability-panel h3 {
+            margin: 0 0 20px;
+            font-size: 1.6rem;
+        }
+
+        .capability-panel ul {
+            display: grid;
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .capability-panel li {
+            padding-left: 20px;
+            border-left: 4px solid var(--amber);
+        }
+
+        .journey {
+            background: #f7e7dc;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(16, 19, 21, 0.15);
+            border: 1px solid rgba(16, 19, 21, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .timeline article {
+            min-height: 250px;
+            padding: clamp(24px, 3vw, 40px);
+            background: var(--paper);
+            transition: background 0.3s;
+        }
+
+        .timeline article:hover {
+            background: #fffdf9;
+        }
+
+        .timeline span {
+            color: var(--coral);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .timeline h3 {
+            margin: 40px 0 12px;
+            font-size: 1.8rem;
+        }
+
+        .timeline p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .contact {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 40px;
+            margin: clamp(20px, 5vw, 72px);
+            padding: clamp(40px, 6vw, 80px);
+            border-radius: 16px;
+            background: var(--night);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .contact h2 {
+            max-width: 800px;
+            margin: 0;
+            font-size: clamp(2.2rem, 5vw, 4.5rem);
+            line-height: 1.1;
+        }
+
+        .contact p:last-child {
+            max-width: 600px;
+            margin: 20px 0 0;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 30px clamp(20px, 5vw, 72px);
+            color: var(--muted);
+            font-size: 0.95rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--amber);
+            color: var(--night);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: #c28236;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 960px) {
+            .site-header {
+                grid-template-columns: 1fr auto;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 140px;
+            }
+
+            .hero-stats,
+            .section-heading,
+            .intro-grid,
+            .skills-layout,
+            .timeline,
+            .contact {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                max-width: 100%;
+                border-radius: 8px;
+            }
+
+            .contact {
+                align-items: start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-action {
+                display: none;
+            }
+
+            .hero-stats div {
+                min-height: 80px;
+                padding: 15px;
+            }
+
+            .hero-stats strong {
+                font-size: 1.4rem;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header" data-header>
+        <a class="brand" href="#home" aria-label="Home">
+            <span class="brand-mark">MS</span>
+            <span>Manas</span>
+        </a>
+        <nav class="nav" aria-label="Primary navigation">
+            <a href="/assets/projects.html">All Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#journey">Journey</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <a class="header-action" href="#contact">Collaborate</a>
+    </header>
+
+    <main>
+        <section class="hero" id="home" aria-label="Portfolio introduction">
+            <img class="hero-image" src="assets/hero-studio.png" alt="Abstract digital design studio"
+                onerror="this.style.display='none'" />
+            <div class="hero-overlay"></div>
+            <div class="hero-content reveal active">
+                <p class="eyebrow">BCA Student & Software Developer</p>
+                <h1>Crafting robust mobile apps & clean web interfaces.</h1>
+                <p class="hero-copy">
+                    I turn complex backend logic into seamless mobile applications, AI scripts, dynamic websites, and
+                    sharp, minimalist UI designs.
+                </p>
+                <div class="hero-actions">
+                    <a class="button primary" href="projects.html">Explore Detailed Projects</a>
+                    <a class="button secondary" href="#contact">Start a Conversation</a>
+                </div>
+            </div>
+            <div class="hero-stats reveal" aria-label="Portfolio highlights">
+                <div>
+                    <strong>10+</strong>
+                    <span>Projects & Scripts</span>
+                </div>
+                <div>
+                    <strong>8+</strong>
+                    <span>Tech Stack Tools</span>
+                </div>
+                <div>
+                    <strong>100%</strong>
+                    <span>Focused on Architecture</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="intro section-band reveal" aria-labelledby="about-title">
+            <div class="section-heading">
+                <p class="eyebrow">About Me</p>
+                <h2 id="about-title">A developer blending database architecture with minimalist design.</h2>
+            </div>
+            <div class="intro-grid">
+                <p>
+                    Currently pursuing my Bachelor of Computer Applications (BCA) at KGI Kanpur under the AKTU syllabus.
+                    I specialize in bridging the gap between heavy database management and highly intuitive user
+                    experiences.
+                </p>
+                <p>
+                    Whether I am building native Android applications with Kotlin, scripting AI voice assistants like
+                    Jarvis in Python, or designing seamless web clones like IRCTC, my work always prioritizes
+                    performance and clarity. When I'm not pushing code to GitHub, you can find me keeping up with the
+                    latest IPL cricket matches.
+                </p>
+            </div>
+        </section>
+
+        <section class="work section-band" id="work" aria-labelledby="work-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Selected Work</p>
+                <h2 id="work-title">Projects that show range & logic.</h2>
+            </div>
+
+            <div class="project-grid">
+
+                <article class="project-card featured reveal">
+                    <div class="project-meta">
+                        <span>AI Scripting</span>
+                        <span>Python</span>
+                    </div>
+                    <h3>Jarvis Voice Assistant</h3>
+                    <p>A voice-controlled desktop assistant built with Python. Designed to automate routine tasks, fetch
+                        live web information, and enhance system productivity using natural language processing modules.
+                    </p>
+                    <div class="tags">
+                        <span>Automation</span>
+                        <span>NLP</span>
+                        <span>APIs</span>
+                    </div>
+                </article>
+
+                <article class="project-card featured reveal">
+                    <div class="project-meta">
+                        <span>Web Dev</span>
+                        <span>HTML/CSS/JS</span>
+                    </div>
+                    <h3>IRCTC Web UI Clone</h3>
+                    <p>A responsive front-end redesign of the Indian Railway catering and tourism portal. Focused
+                        heavily on improved UI/UX, intuitive navigation, and modernizing a complex interface system.</p>
+                    <div class="tags">
+                        <span>UI/UX Design</span>
+                        <span>Frontend</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Android App</span>
+                        <span>Kotlin</span>
+                    </div>
+                    <h3>PennyDrop Finance</h3>
+                    <p>A modern personal finance tracker built natively for Android using Jetpack Compose, designed with
+                        fluid animations and a complete promotional video layout.</p>
+                    <div class="tags">
+                        <span>Jetpack Compose</span>
+                        <span>Mobile UI</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Campus Utility</span>
+                        <span>Python / SQL</span>
+                    </div>
+                    <h3>KGI ERP Mobile</h3>
+                    <p>A comprehensive campus utility app featuring live attendance tracking and timetable
+                        synchronization, supported by a custom-built, secure Python backend.</p>
+                    <div class="tags">
+                        <span>Backend</span>
+                        <span>Database</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Security App</span>
+                        <span>Android SDK</span>
+                    </div>
+                    <h3>App Lock Android</h3>
+                    <p>A dedicated privacy application demonstrating secure architecture and complex Gradle build
+                        management, complete with custom-designed minimalist icons.</p>
+                    <div class="tags">
+                        <span>Security</span>
+                        <span>Gradle</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Gaming / Web</span>
+                        <span>JavaScript</span>
+                    </div>
+                    <h3>Interactive IPL Trivia</h3>
+                    <p>A multi-level interactive quiz platform with dynamic score tracking, state management, and an
+                        engaging UI tailored specifically for cricket enthusiasts.</p>
+                    <div class="tags">
+                        <span>Logic</span>
+                        <span>State Management</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Frontend</span>
+                        <span>HTML/CSS/JS</span>
+                    </div>
+                    <h3>Dynamic Web Modules</h3>
+                    <p>A collection of web projects featuring functional digital event cards, live countdown timers, and
+                        fluid photo sliders with custom animation triggers.</p>
+                    <div class="tags">
+                        <span>DOM Manipulation</span>
+                        <span>Animations</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-meta">
+                        <span>Open Source</span>
+                        <span>Git / Design</span>
+                    </div>
+                    <h3>Creative Repositories</h3>
+                    <p>A central hub on GitHub containing my creative coding experiments, logo wireframes, utility
+                        scripts, and ongoing exploration of UI/UX design trends.</p>
+                    <div class="tags">
+                        <span>Version Control</span>
+                        <span>Graphic Design</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="skills section-band" id="skills" aria-labelledby="skills-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Skills</p>
+                <h2 id="skills-title">The toolkit behind the code.</h2>
+            </div>
+            <div class="skills-layout reveal">
+                <div class="skill-list">
+                    <div class="skill-row">
+                        <span>Python, AI Automation & SQL</span>
+                        <div class="skill-track"><i style="width: 90%"></i></div>
+                    </div>
+                    <div class="skill-row">
+                        <span>Kotlin & Jetpack Compose</span>
+                        <div class="skill-track"><i style="width: 88%"></i></div>
+                    </div>
+                    <div class="skill-row">
+                        <span>HTML5 / CSS3 / JavaScript</span>
+                        <div class="skill-track"><i style="width: 85%"></i></div>
+                    </div>
+                    <div class="skill-row">
+                        <span>UI Wireframing & Logo Design</span>
+                        <div class="skill-track"><i style="width: 80%"></i></div>
+                    </div>
+                </div>
+                <div class="capability-panel">
+                    <h3>What I can do for you</h3>
+                    <ul>
+                        <li>Script AI-driven automation tools (like Jarvis) in Python.</li>
+                        <li>Recreate and optimize complex web layouts (like IRCTC).</li>
+                        <li>Build Native Android applications from scratch.</li>
+                        <li>Write robust backend scripts and manage databases.</li>
+                        <li>Design clean, minimal UI assets and logic flows.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="journey section-band" id="journey" aria-labelledby="journey-title">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Journey</p>
+                <h2 id="journey-title">Learning, debugging, building.</h2>
+            </div>
+            <div class="timeline reveal">
+                <article>
+                    <span>01</span>
+                    <h3>Academics</h3>
+                    <p>Mastering computer science fundamentals, data structures, and the AKTU syllabus at KGI Kanpur.
+                    </p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h3>Architecture</h3>
+                    <p>Troubleshooting complex build directories, configuring GitHub repos, and structuring reliable
+                        AI/Python scripts.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h3>Interface</h3>
+                    <p>Translating wireframes into reality, utilizing Jetpack Compose for mobile and optimizing web
+                        clones like IRCTC.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="contact reveal" id="contact" aria-labelledby="contact-title">
+            <div class="contact-copy">
+                <p class="eyebrow">Contact</p>
+                <h2 id="contact-title">Have an idea? Let’s write the code.</h2>
+                <p>Whether you need a full-stack mobile application, a secure database script, or an automated Python
+                    assistant, feel free to reach out.</p>
+            </div>
+            <div class="contact-actions">
+                <a class="button primary" href="mailto:manassingh1509@gmail.com">Email Me</a>
+                <a class="button secondary light" href="https://github.com/manass2268" aria-label="Visit GitHub">Explore
+                    GitHub</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>Developed by Manas</span>
+        <span>Portfolio Website 2026</span>
+    </footer>
+
+    <a href="#home" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+    <script>
+        // 1. Header Scroll Effect
+        const header = document.querySelector("[data-header]");
+        const syncHeader = () => {
+            header.classList.toggle("is-scrolled", window.scrollY > 12);
+        };
+        syncHeader();
+        window.addEventListener("scroll", syncHeader, { passive: true });
+
+        // 2. Scroll Reveal Animations
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Trigger line
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // 3. Back to Top Button
+        const backToTopButton = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 500) {
+                backToTopButton.classList.add("show");
+            } else {
+                backToTopButton.classList.remove("show");
+            }
+        });
+    </script>
+</body>
+
+</html>
